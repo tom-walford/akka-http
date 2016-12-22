@@ -40,7 +40,6 @@ lazy val root = Project(
     base = file(".")
   )
   .enablePlugins(UnidocRoot, NoPublish, DeployRsync)
-  .disablePlugins(BintrayPlugin)
   .settings(
     // Unidoc doesn't like macros
     unidocProjectExcludes := Seq(parsing),
@@ -89,7 +88,7 @@ lazy val httpTests = project("akka-http-tests")
   .settings(Dependencies.httpTests)
   .dependsOn(httpSprayJson, httpXml, httpJackson,
     httpTestkit % "test", httpCore % "test->test")
-  .enablePlugins(NoPublish).disablePlugins(BintrayPlugin) // don't release tests
+  .enablePlugins(NoPublish)
   .enablePlugins(MultiNode)
   .disablePlugins(MimaPlugin) // this is only tests
   .configs(MultiJvm)
@@ -99,7 +98,6 @@ lazy val httpTests = project("akka-http-tests")
 lazy val httpMarshallersScala = project("akka-http-marshallers-scala")
   //.disablePlugins(MimaPlugin)
   .enablePlugins(NoPublish)
-  .disablePlugins(BintrayPlugin)
   .aggregate(httpSprayJson, httpXml)
 
 lazy val httpXml =
@@ -111,7 +109,6 @@ lazy val httpSprayJson =
 lazy val httpMarshallersJava = project("akka-http-marshallers-java")
   //.disablePlugins(MimaPlugin)
   .enablePlugins(NoPublish)
-  .disablePlugins(BintrayPlugin)
   .aggregate(httpJackson)
 
 lazy val httpJackson =
@@ -138,7 +135,6 @@ def httpMarshallersJavaSubproject(name: String) =
 
 lazy val docs = project("docs")
   .enablePlugins(ParadoxPlugin, NoPublish, DeployRsync)
-  .disablePlugins(BintrayPlugin)
   .dependsOn(
     httpCore, http, httpXml, httpMarshallersJava, httpMarshallersScala,
     httpTests % "compile;test->test", httpTestkit % "compile;test->test"
