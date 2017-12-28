@@ -26,7 +26,8 @@ private[akka] object HttpConnectionIdleTimeoutBidi {
     val ex = new HttpIdleTimeoutException(
       "HTTP idle-timeout encountered" + connectionToString + ", " +
         "no bytes passed in the last " + idleTimeout + ". " +
-        "This is configurable by akka.http.[server|client].idle-timeout.", idleTimeout)
+        "This is configurable by akka.http.[server|client].idle-timeout. " +
+        "If you're seeing this message unexpectedly, you might've forgotten to discard a response entity", idleTimeout)
 
     val mapError = Flow[ByteString].mapError({ case t: TimeoutException ⇒ ex })
 
